@@ -6,7 +6,7 @@ import joblib
 import os.path
 
 
-class VoiceVerifier:
+class SpeakerRecognizer:
     """
     Model that Recognize voice of speaker
 
@@ -75,7 +75,7 @@ class VoiceVerifier:
 
     def verify(self, username, audio_file):
         """
-        Verifies username with audio file
+        Verifies speaker with audio file
         """
         features = self.extract_features(audio_file)
         if features is not None:
