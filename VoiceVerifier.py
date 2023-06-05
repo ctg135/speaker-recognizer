@@ -37,6 +37,42 @@ class VoiceVerifier:
         else:
             print(f"Failed to save voice information for user: {username}")
 
+    def save_from_path(self, path):
+        """
+        Load samples from specified directory.
+        It need a struct to work:
+        ```
+        path/
+        --username1/
+        ----sample_file
+        ----...
+        --username2/
+        ----sample_file
+        ----...
+        ```
+        """
+
+        if not os.path.isdir(path): 
+            print(f'{path} is not a directory')
+            return
+        sep = os.path.sep
+        for (dirpath, dirnames, filenames) in os.walk(path):
+            if dirpath.count(sep) > 1: continue
+            if filenames == []: continue
+            username = dirpath.split(sep)[1]
+            counter = 0
+            for file in filenames:
+                counter = counter + 1
+                sample_file = os.path.join(dirpath, file)
+                features = self.extract_features(sample_file)
+                if features is not None:
+                    self.features.append(features)
+                    self.labels.append(username)
+                else:
+                    print(f'Error {sample_file} {username}')
+            print(f'Total {counter} samples for {username}')
+
+
     def verify(self, username, audio_file):
         """
         Verifies username with audio file

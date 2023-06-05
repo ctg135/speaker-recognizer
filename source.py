@@ -5,6 +5,9 @@ from VoiceVerifier import VoiceVerifier
 verifier = VoiceVerifier("voice_model.joblib")
 
 # Save voice information for users
+verifier.save_from_path(r'samples')
+
+'''
 verifier.save("Sveta", r"records/sveta1.wav")
 verifier.save("Sveta", r"records/sveta2.wav")
 verifier.save("Sveta", r"records/sveta3.wav")
@@ -20,6 +23,7 @@ verifier.save("Silence", r"records/silence2.wav")
 verifier.save("Silence", r"records/silence3.wav")
 verifier.save("Silence", r"records/silence4.wav")
 verifier.save("Silence", r"records/silence5.wav")
+'''
 
 # Train the model
 verifier.train_model()
@@ -60,8 +64,5 @@ def verify_voice(verifier):
         print("User verified.")
     else:
         print("User not verified.")
-
-
-
 
 predict_on_fly(verifier)
