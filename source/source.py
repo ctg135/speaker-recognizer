@@ -5,7 +5,7 @@ from VoiceVerifier import VoiceVerifier
 verifier = VoiceVerifier("voice_model.joblib")
 
 # Save voice information for users
-verifier.save_from_path(r'samples')
+verifier.save_from_path(r'../samples')
 
 '''
 verifier.save("Sveta", r"records/sveta1.wav")

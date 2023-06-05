@@ -22,12 +22,20 @@ if __name__ == '__main__':
     
     sample_rate, signal = audioBasicIO.read_audio_file(file_name)
     plt.plot(signal)
-    
     plt.show()
-    plt.title('Chromagram')
+
     ShortTermFeatures.chromagram(signal, sample_rate, 0.050*sample_rate, 0.025*sample_rate, plot=True)
-    plt.title('Spectrogram')
     ShortTermFeatures.spectrogram(signal, sample_rate, 0.050*sample_rate, 0.025*sample_rate, plot=True)
+
+    
+    '''print('Signal features:')
+    features, names = ShortTermFeatures.feature_extraction(signal, sample_rate, 0.050*sample_rate, 0.025*sample_rate)
+    print(names)
+    for feature, name in zip(features, names):
+        pass
+        # print(f'[{name}] - [{feature}]')'''
+    
+
 
 
 
