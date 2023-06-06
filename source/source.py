@@ -5,31 +5,33 @@ from SpeakerRecognizer import SpeakerRecognizer
 recognizer = SpeakerRecognizer("voice_model.joblib")
 
 # Save voice information for users
-recognizer.save_from_path(r'../samples')
+# recognizer.save_from_path(r'../samples')
 
-'''
-recognizer.save("Sveta", r"records/sveta1.wav")
-recognizer.save("Sveta", r"records/sveta2.wav")
-recognizer.save("Sveta", r"records/sveta3.wav")
-recognizer.save("Sveta", r"records/sveta4.wav")
-recognizer.save("Sveta", r"records/sveta5.wav")
-recognizer.save("Roma", r"records/roma1.wav")
-recognizer.save("Roma", r"records/roma2.wav")
-recognizer.save("Roma", r"records/roma3.wav")
-recognizer.save("Roma", r"records/roma4.wav")
-recognizer.save("Roma", r"records/roma5.wav")
-recognizer.save("Silence", r"records/silence1.wav")
-recognizer.save("Silence", r"records/silence2.wav")
-recognizer.save("Silence", r"records/silence3.wav")
-recognizer.save("Silence", r"records/silence4.wav")
-recognizer.save("Silence", r"records/silence5.wav")
-'''
+
+recognizer.save("Sveta", r"../samples/Sveta/sveta1.wav")
+recognizer.save("Sveta", r"../samples/Sveta/sveta2.wav")
+recognizer.save("Sveta", r"../samples/Sveta/sveta3.wav")
+recognizer.save("Sveta", r"../samples/Sveta/sveta4.wav")
+recognizer.save("Roma", r"../samples/Roma/roma1.wav")
+recognizer.save("Roma", r"../samples/Roma/roma2.wav")
+recognizer.save("Roma", r"../samples/Roma/roma3.wav")
+recognizer.save("Roma", r"../samples/Roma/roma4.wav")
+recognizer.save("Silence", r"../samples/Silence/silence1.wav")
+recognizer.save("Silence", r"../samples/Silence/silence2.wav")
+recognizer.save("Silence", r"../samples/Silence/silence3.wav")
+recognizer.save("Silence", r"../samples/Silence/silence4.wav")
+
 
 # Train the model
 recognizer.train_model()
 
 # Load the trained model
 recognizer.load_model()
+
+recognizer.predict()
+
+exit(r"../samples/Roma/roma5.wav")
+
 
 def predict_on_fly(recognizer):
     FORMAT = pyaudio.paInt16

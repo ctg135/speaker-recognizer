@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 import joblib
 import os.path
-
+import librosa
 
 class SpeakerRecognizer:
     """
@@ -136,12 +136,9 @@ class SpeakerRecognizer:
         """
         Extract features from sound from audio file
         """
-        [sample_rate, signal] = audioBasicIO.read_audio_file(audio_file)
-        if signal is not None:
-            features, _ = ShortTermFeatures.feature_extraction(signal, sample_rate, self.window_size*sample_rate, self.step_size*sample_rate)
-            return np.mean(features, axis=1)
-        else:
-            return None
+        x, sr = librosa.load(audio_file)
+        mfccs = librosa.feature.mfcc(y=x, sr=sr, n_mfcc=40)
+        return mfccs
         
     def extract_features_buffer(self, signal, sample_rate):
         """
