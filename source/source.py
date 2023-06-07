@@ -11,15 +11,15 @@ recognizer = SpeakerRecognizer("voice_model.joblib")
 recognizer.save("Sveta", r"../samples/Sveta/sveta1.wav")
 recognizer.save("Sveta", r"../samples/Sveta/sveta2.wav")
 recognizer.save("Sveta", r"../samples/Sveta/sveta3.wav")
-recognizer.save("Sveta", r"../samples/Sveta/sveta4.wav")
+# recognizer.save("Sveta", r"../samples/Sveta/sveta4.wav")
 recognizer.save("Roma", r"../samples/Roma/roma1.wav")
 recognizer.save("Roma", r"../samples/Roma/roma2.wav")
 recognizer.save("Roma", r"../samples/Roma/roma3.wav")
-recognizer.save("Roma", r"../samples/Roma/roma4.wav")
+# recognizer.save("Roma", r"../samples/Roma/roma4.wav")
 recognizer.save("Silence", r"../samples/Silence/silence1.wav")
 recognizer.save("Silence", r"../samples/Silence/silence2.wav")
 recognizer.save("Silence", r"../samples/Silence/silence3.wav")
-recognizer.save("Silence", r"../samples/Silence/silence4.wav")
+# recognizer.save("Silence", r"../samples/Silence/silence4.wav")
 
 
 # Train the model
@@ -28,9 +28,15 @@ recognizer.train_model()
 # Load the trained model
 recognizer.load_model()
 
-recognizer.predict()
+print('Sveta ->', recognizer.predict(r"../samples/Sveta/sveta4.wav"))
+print('Sveta ->', recognizer.predict(r"../samples/Sveta/sveta5.wav"))
+print('Roma ->', recognizer.predict(r"../samples/Roma/roma4.wav"))
+print('Roma ->', recognizer.predict(r"../samples/Roma/roma5.wav"))
+print('Silence ->', recognizer.predict(r"../samples/Silence/silence4.wav"))
+print('Silence ->', recognizer.predict(r"../samples/Silence/silence5.wav"))
 
-exit(r"../samples/Roma/roma5.wav")
+
+exit()
 
 
 def predict_on_fly(recognizer):

@@ -28,7 +28,7 @@ class SpeakerRecognizer:
         if not os.path.isfile(sample_file): 
             print(f'{sample_file} is not a file')
             return
-        features = self.extract_features(sample_file)
+        features = self.extract_features_MFCC(sample_file)
         print(f'{sample_file} ', end='')
         if features is not None:
             self.features.append(features)
@@ -92,7 +92,7 @@ class SpeakerRecognizer:
         """
         Predict value from a audio file
         """
-        features = self.extract_features(audio_file)
+        features = self.extract_features_MFCC(audio_file)
         if features is not None:
             if self.model is None:
                 print("Model not trained. Please train the model first.")
@@ -132,13 +132,24 @@ class SpeakerRecognizer:
         except FileNotFoundError:
             print("Model file not found. Train the model first.")
 
+    def extract_features_MFCC(self, audio_file):
+        """
+        Extract MFCC features from sound from audio file
+        """
+        x, sr = librosa.load(audio_file)
+        mfccs = librosa.feature.mfcc(y=x, sr=sr, n_mfcc=40)
+        return np.mean(mfccs, axis=1)
+    
     def extract_features(self, audio_file):
         """
         Extract features from sound from audio file
         """
-        x, sr = librosa.load(audio_file)
-        mfccs = librosa.feature.mfcc(y=x, sr=sr, n_mfcc=40)
-        return mfccs
+        [sample_rate, signal] = audioBasicIO.read_audio_file(audio_file)
+        if signal is not None:
+            features, _ = ShortTermFeatures.feature_extraction(signal, sample_rate, self.window_size*sample_rate, self.step_size*sample_rate)
+            return np.mean(features, axis=1)
+        else:
+            return None
         
     def extract_features_buffer(self, signal, sample_rate):
         """

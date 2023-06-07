@@ -6,7 +6,6 @@ from pyAudioAnalysis import ShortTermFeatures
 from pyAudioAnalysis import audioBasicIO
 
 
-
 def delta(mfcc_frames):
     deltas     = (mfcc_frames[0:len(mfcc_frames)-2,:] - mfcc_frames[2:,:])/2
     new_frames = mfcc_frames[1:len(mfcc_frames) - 1,:]
@@ -18,8 +17,10 @@ audio_path = '../samples/Sveta/sveta3.wav'
 x, sr = librosa.load(audio_path)
 mfccs = librosa.feature.mfcc(y=x, sr=sr, n_mfcc=40)
 
-plt.style.use('ggplot')
+plt.plot(x)
+plt.show()
 
+plt.style.use('ggplot')
 
 
 # mfcc
