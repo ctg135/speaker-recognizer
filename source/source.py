@@ -1,8 +1,12 @@
 import pyaudio
+import utils
 from array import array
 from SpeakerRecognizer import SpeakerRecognizer
+from Feature import Feature
+from MFCC_feature import MFCC
+from Raw_feature import Raw
 
-recognizer = SpeakerRecognizer("voice_model.joblib")
+recognizer = SpeakerRecognizer("voice_model.joblib", MFCC())
 
 # Save voice information for users
 # recognizer.save_from_path(r'../samples')
@@ -27,6 +31,8 @@ recognizer.train_model()
 
 # Load the trained model
 recognizer.load_model()
+
+utils.predict_on_fly(recognizer)
 
 print('Sveta ->', recognizer.predict(r"../samples/Sveta/sveta4.wav"))
 print('Sveta ->', recognizer.predict(r"../samples/Sveta/sveta5.wav"))
