@@ -1,6 +1,7 @@
 from pyAudioAnalysis import audioBasicIO
 from pyAudioAnalysis import ShortTermFeatures
 from sklearn.ensemble import RandomForestClassifier
+import numpy as np
 import joblib
 import os.path
 from Feature import Feature
@@ -97,7 +98,7 @@ class SpeakerRecognizer:
             if self.model is None:
                 print("Model not trained. Please train the model first.")
                 return False
-            return self.model.predict([features])
+            return self.model.predict([features])[0], np.max(self.model.predict_proba([features]))
         
     def predict_buffer(self, signal, sample_rate):
         """
@@ -108,7 +109,7 @@ class SpeakerRecognizer:
             if self.model is None:
                 print("Model not trained. Please train the model first.")
                 return False
-            return self.model.predict([features])
+            return self.model.predict([features]), np.max(self.model.predict_proba([features]))
         
     def train_model(self):
         """
