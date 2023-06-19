@@ -13,7 +13,7 @@ def delta(mfcc_frames):
     return coeffs
 
 
-audio_path = '../samples/Sveta/sveta3.wav'
+audio_path = '../records/roma/sample1.wav'
 x, sr = librosa.load(audio_path)
 mfccs = librosa.feature.mfcc(y=x, sr=sr, n_mfcc=40)
 

@@ -46,3 +46,6 @@ share/
 pyvenv.cfg
 # Joblib
 *.joblib
+# samples
+records/
+samples/

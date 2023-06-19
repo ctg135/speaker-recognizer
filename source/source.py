@@ -12,6 +12,9 @@ recognizer = SpeakerRecognizer("voice_model.joblib", MFCC())
 # recognizer.save_from_path(r'../samples')
 
 
+# recognizer.save_from_path(r'../records')
+
+
 recognizer.save("Sveta", r"../samples/Sveta/sveta1.wav")
 recognizer.save("Sveta", r"../samples/Sveta/sveta2.wav")
 recognizer.save("Sveta", r"../samples/Sveta/sveta3.wav")
@@ -32,7 +35,7 @@ recognizer.train_model()
 # Load the trained model
 recognizer.load_model()
 
-utils.predict_on_fly(recognizer)
+# utils.predict_on_fly(recognizer)
 
 print('Sveta ->', recognizer.predict(r"../samples/Sveta/sveta4.wav"))
 print('Sveta ->', recognizer.predict(r"../samples/Sveta/sveta5.wav"))
