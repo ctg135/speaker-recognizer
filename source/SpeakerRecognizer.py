@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 import joblib
 import os.path
-
+from Feature import Feature
 
 class SpeakerRecognizer:
     """
@@ -13,13 +13,14 @@ class SpeakerRecognizer:
     First need to `save()` samples with names and `train()` model, than use `predict()` or `verify()` to use
     """
 
-    def __init__(self, model_file):
+    def __init__(self, model_file, feature: Feature):
         self.model_file = model_file
         self.features = []
         self.labels = []
         self.model = None
         self.window_size = 0.050
         self.step_size = 0.025
+        self.feature: Feature = feature
 
     def save(self, username, sample_file):
         """
@@ -97,7 +98,7 @@ class SpeakerRecognizer:
             if self.model is None:
                 print("Model not trained. Please train the model first.")
                 return False
-            return self.model.predict([features])
+            return self.model.predict([features])[0], np.max(self.model.predict_proba([features]))
         
     def predict_buffer(self, signal, sample_rate):
         """
@@ -108,7 +109,7 @@ class SpeakerRecognizer:
             if self.model is None:
                 print("Model not trained. Please train the model first.")
                 return False
-            return self.model.predict([features])
+            return self.model.predict([features]), np.max(self.model.predict_proba([features]))
         
     def train_model(self):
         """
@@ -131,24 +132,15 @@ class SpeakerRecognizer:
             print("Model loaded successfully.")
         except FileNotFoundError:
             print("Model file not found. Train the model first.")
-
+    
     def extract_features(self, audio_file):
         """
         Extract features from sound from audio file
         """
-        [sample_rate, signal] = audioBasicIO.read_audio_file(audio_file)
-        if signal is not None:
-            features, _ = ShortTermFeatures.feature_extraction(signal, sample_rate, self.window_size*sample_rate, self.step_size*sample_rate)
-            return np.mean(features, axis=1)
-        else:
-            return None
+        return self.feature.extract_features(audio_file)
         
-    def extract_features_buffer(self, signal, sample_rate):
+    def extract_features_buffer(self, buffer, sample_rate):
         """
         Extracts features from sound. Uses buffer, array of short int
         """
-        if signal is not None:
-            features, _ = ShortTermFeatures.feature_extraction(signal, sample_rate, self.window_size*sample_rate, self.step_size*sample_rate)
-            return np.mean(features, axis=1)
-        else:
-            return None
+        return self.feature.extract_features_buffer(buffer, sample_rate)

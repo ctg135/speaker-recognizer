@@ -106,7 +106,7 @@ def record():
         if silent and snd_started:
             num_silent += 1
         elif not silent and not snd_started:
-            snd_started = True
+        snd_started = True
 
         if snd_started and num_silent > 30:
             break
@@ -117,8 +117,8 @@ def record():
     stream.close()
     p.terminate
 
-    r = normalize(r)
-    r = trim(r)
+    # r = normalize(r)he
+    # r = trim(r)
     r = add_silence(r, 0.5)
     return sample_width, r
 
